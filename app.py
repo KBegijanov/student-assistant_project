@@ -67,8 +67,8 @@ data.to_csv('sample.csv', index=False)
 random_indices_increase = np.random.choice(data.index, size=int(0.25 * len(data)), replace=False)
 random_indices_decrease = np.random.choice(data.index, size=int(0.35 * len(data)), replace=False)
 
-data.loc[random_indices_increase, 'Real Attempts'] += 0.8
-data.loc[random_indices_decrease, 'Real Attempts'] -= 0.8
+data.loc[random_indices_increase, 'Real Attempts'] += 1.5
+data.loc[random_indices_decrease, 'Real Attempts'] -= 1.8
 
 # Подготовка данных для обучения
 X = data[['Word Length', 'Vowels', 'Consonants']]
