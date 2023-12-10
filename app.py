@@ -98,9 +98,9 @@ model = joblib.load('model.pkl')
 st.title("Прогнозирование количества повторений слов на английском языке для их запоминания")
 
 # Загрузка таблицы пользователем
-uploaded_file = st.file_uploader("Загрузите файл со словами на английском языке (txt)", type=["txt"])
+uploaded_file = st.file_uploader("Загрузите таблицу со словами на английском языке (Excel)", type=["xlsx", "xls"])
 if uploaded_file is not None:
-    user_df = pd.read_csv(uploaded_file, header=None, names=['Words'])
+    user_df = pd.read_excel(uploaded_file, header=None, names=['Words'])
 
     # Прогнозирование чисел с использованием модели
     user_df['Word Length'] = user_df['Words'].apply(lambda x: len(x))
@@ -109,19 +109,20 @@ if uploaded_file is not None:
 
     X_user = user_df[['Word Length', 'Vowels', 'Consonants']]
     user_df['Predicted Attempts'] = model.predict(X_user)
+    user_df['Predicted Attempts'] = user_df['Predicted Attempts'].round()
 
     # Группировка слов в зависимости от прогнозируемого числа
     grouped_df = user_df.groupby('Predicted Attempts')['Words'].apply(list).reset_index(name='Word List')
 
     # Вывод результата
-    #st.write("Прогнозирование количества повторений для запоминания слов:")
+    #st.write("Прогнозирование чисел для слов:")
     #st.write(user_df)
 
-    st.write("Группировка слов в зависимости от прогнозируемого количества повторений для из запоминания:")
+    st.write("Таблица слов на английском языке сгруппированная по количеству возрастания повторений для запоминания:")
     st.write(grouped_df)
 
-    # Скачивание получившейся таблицы
-    #st.write("Скачать результаты:")
+    # Скачивание получившейся таблицы в формате Excel
+   # st.write("Скачать результаты:")
     #st.write("1. Для полной таблицы")
     #st.download_button(
      #   label="Скачать полную таблицу",
@@ -130,10 +131,10 @@ if uploaded_file is not None:
         #mime="text/csv"
     #)
 
-    st.write("2. Для группированных данных")
+    st.write("Данные для составления плана обучения новых слов на английском языке")
     st.download_button(
-        label="Скачать группированные данные",
-        data=grouped_df.to_csv(index=False).encode('utf-8'),
-        file_name="predicted_table_grouped.csv",
-        mime="text/csv"
+        label="Скачать данные",
+        data=grouped_df.to_excel(index=False, engine='xlsxwriter').getvalue(),
+        file_name="predicted_table_grouped.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
