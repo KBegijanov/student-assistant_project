@@ -1,4 +1,3 @@
-random
 csv
 nltk
 nltk.corpus[words]
