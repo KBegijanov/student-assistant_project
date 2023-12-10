@@ -10,6 +10,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import mean_squared_error
 import streamlit as st
+from io import BytesIO
 import joblib
 
 # Загрузка словаря английских слов из библиотеки nltk
@@ -132,10 +133,13 @@ if uploaded_file is not None:
         #mime="text/csv"
     #)
 
-    st.write("Данные для составления плана обучения новых слов на английском языке")
+    st.write("Данные о необходимом количестве повторений слов для запоминания")
+    excel_data = BytesIO()
+    with pd.ExcelWriter(excel_data, engine='xlsxwriter') as writer:
+        grouped_df.to_excel(writer, index=False, sheet_name='Sheet1')
     st.download_button(
         label="Скачать данные",
-        data=grouped_df.to_excel(index=False, engine='excel_writer').getvalue(),
+        data=excel_data.getvalue(),
         file_name="predicted_table_grouped.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
