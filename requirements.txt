@@ -1,4 +1,3 @@
-csv
 nltk
 nltk.corpus[words]
 pandas
