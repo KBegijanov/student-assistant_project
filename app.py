@@ -39,7 +39,6 @@ with open('sample.csv', 'w', newline='', encoding='utf-8') as csvfile:
 
 # Загрузим данные из CSV-файла
 data = pd.read_csv('sample.csv')
-data
 
 def calculate_attempts(row):
     attempts = 1
@@ -65,7 +64,6 @@ data['Real Attempts'] = data['Attempts']
 
 # Сохраняем таблицу в файл CSV
 data.to_csv('sample.csv', index=False)
-data
 
 # Обновление значений в столбце "Real Attempts"
 random_indices_increase = np.random.choice(data.index, size=int(0.25 * len(data)), replace=False)
@@ -73,8 +71,6 @@ random_indices_decrease = np.random.choice(data.index, size=int(0.2 * len(data))
 
 data.loc[random_indices_increase, 'Real Attempts'] += 0.8
 data.loc[random_indices_decrease, 'Real Attempts'] -= 0.8
-
-data
 
 # Подготовка данных для обучения
 X = data[['Word Length', 'Vowels', 'Consonants']]
@@ -99,10 +95,10 @@ joblib.dump(model, "model.pkl")
 model = joblib.load('model.pkl')
 
 # Загрузка страницы
-st.title("Прогнозирование чисел для слов на английском языке")
+st.title("Прогнозирование количества повторений слов на английском языке для их запоминания")
 
 # Загрузка таблицы пользователем
-uploaded_file = st.file_uploader("Загрузите таблицу со словами на английском языке (TXT)", type=["txt"])
+uploaded_file = st.file_uploader("Загрузите файл со словами на английском языке (txt)", type=["txt"])
 if uploaded_file is not None:
     user_df = pd.read_csv(uploaded_file, header=None, names=['Words'])
 
@@ -118,21 +114,21 @@ if uploaded_file is not None:
     grouped_df = user_df.groupby('Predicted Attempts')['Words'].apply(list).reset_index(name='Word List')
 
     # Вывод результата
-    st.write("Прогнозирование чисел для слов:")
-    st.write(user_df)
+    #st.write("Прогнозирование количества повторений для запоминания слов:")
+    #st.write(user_df)
 
-    st.write("Группировка слов в зависимости от прогнозируемого числа:")
+    st.write("Группировка слов в зависимости от прогнозируемого количества повторений для из запоминания:")
     st.write(grouped_df)
 
     # Скачивание получившейся таблицы
-    st.write("Скачать результаты:")
-    st.write("1. Для полной таблицы")
-    st.download_button(
-        label="Скачать полную таблицу",
-        data=user_df.to_csv(index=False).encode('utf-8'),
-        file_name="predicted_table_full.csv",
-        mime="text/csv"
-    )
+    #st.write("Скачать результаты:")
+    #st.write("1. Для полной таблицы")
+    #st.download_button(
+     #   label="Скачать полную таблицу",
+      #  data=user_df.to_csv(index=False).encode('utf-8'),
+       # file_name="predicted_table_full.csv",
+        #mime="text/csv"
+    #)
 
     st.write("2. Для группированных данных")
     st.download_button(
