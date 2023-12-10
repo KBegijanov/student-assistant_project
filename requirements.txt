@@ -1,0 +1,12 @@
+random
+csv
+nltk
+nltk.corpus[words]
+pandas
+numpy
+sklearn.model_selection[train_test_split]
+sklearn.ensemble[RandomForestRegressor]
+sklearn.ensemble[RandomForestClassifier]
+sklearn.metrics[mean_squared_error]
+streamlit
+joblib
