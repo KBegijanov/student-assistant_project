@@ -135,7 +135,7 @@ if uploaded_file is not None:
     st.write("Данные для составления плана обучения новых слов на английском языке")
     st.download_button(
         label="Скачать данные",
-        data=grouped_df.to_excel(index=False, engine='xlsxwriter').getvalue(),
+        data=grouped_df.to_excel(index=False, engine='excel_writer').getvalue(),
         file_name="predicted_table_grouped.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
