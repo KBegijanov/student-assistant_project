@@ -102,11 +102,15 @@ model = joblib.load('model.pkl')
 st.title("Прогнозирование чисел для слов на английском языке")
 
 # Загрузка таблицы пользователем
-uploaded_file = st.file_uploader("Загрузите таблицу со словами на английском языке (CSV)", type=["csv"])
+uploaded_file = st.file_uploader("Загрузите таблицу со словами на английском языке (TXT)", type=["txt"])
 if uploaded_file is not None:
-    user_df = pd.read_csv(uploaded_file)
+    user_df = pd.read_csv(uploaded_file, header=None, names=['Words'])
 
     # Прогнозирование чисел с использованием модели
+    user_df['Word Length'] = user_df['Words'].apply(lambda x: len(x))
+    user_df['Vowels'] = user_df['Words'].apply(lambda x: sum(1 for char in x if char.lower() in 'aeiou'))
+    user_df['Consonants'] = user_df['Words'].apply(lambda x: sum(1 for char in x if char.lower() in 'bcdfghjklmnpqrstvwxyz'))
+
     X_user = user_df[['Word Length', 'Vowels', 'Consonants']]
     user_df['Predicted Attempts'] = model.predict(X_user)
 
