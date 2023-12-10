@@ -1,6 +1,7 @@
 nltk
 pandas
 openpyxl
+xlsxwriter
 numpy
 scikit-learn
 streamlit
