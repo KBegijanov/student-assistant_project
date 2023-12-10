@@ -2,7 +2,6 @@ nltk
 pandas
 openpyxl
 numpy
-io
 scikit-learn
 streamlit
 joblib
