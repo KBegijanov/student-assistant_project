@@ -44,7 +44,6 @@ with open('sample.csv', 'w', newline='', encoding='utf-8') as csvfile:
 data = pd.read_csv('sample.csv')
 
 def calculate_attempts(row):
-    attempts = 1
     if row['Word Length'] <= 3:
         attempts = 1
     elif 4 <= row['Word Length'] <= 6:
@@ -53,10 +52,6 @@ def calculate_attempts(row):
         attempts = 3
     elif row['Word Length'] >= 9:
         attempts = 4
-
-    # Увеличиваем количество повторений, если между двумя согласными нет гласной
-    if attempts < 5 and 'aeiou' not in row['Word'].lower():
-        attempts += 1
 
     return attempts
 
@@ -70,7 +65,7 @@ data.to_csv('sample.csv', index=False)
 
 # Обновление значений в столбце "Real Attempts"
 random_indices_increase = np.random.choice(data.index, size=int(0.25 * len(data)), replace=False)
-random_indices_decrease = np.random.choice(data.index, size=int(0.2 * len(data)), replace=False)
+random_indices_decrease = np.random.choice(data.index, size=int(0.35 * len(data)), replace=False)
 
 data.loc[random_indices_increase, 'Real Attempts'] += 0.8
 data.loc[random_indices_decrease, 'Real Attempts'] -= 0.8
@@ -80,7 +75,7 @@ X = data[['Word Length', 'Vowels', 'Consonants']]
 y = data['Real Attempts']
 
 # Разделение данных на тренировочный и тестовый наборы
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Обучение модели
 model = RandomForestRegressor(random_state=42)
