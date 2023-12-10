@@ -1,5 +1,4 @@
 nltk
-nltk.corpus[words]
 pandas
 numpy
 sklearn.model_selection[train_test_split]
