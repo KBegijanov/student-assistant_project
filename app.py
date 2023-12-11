@@ -52,7 +52,8 @@ def calculate_attempts(row):
         attempts = 3
     elif row['Word Length'] >= 9:
         attempts = 4
-
+    if row['Consonants'] >= 2 * row['Vowels']:
+        attempts += 1
     return attempts
 
 data['Attempts'] = data.apply(calculate_attempts, axis=1)
