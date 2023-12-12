@@ -19,8 +19,8 @@ nltk.download('words')
 english_words = set(words.words())
 # Генерация списка из 1000 уникальных слов на английском языке
 word_list = random.sample(list(english_words), 1000)
-# Создаем список для столбца "Attempts" (число попыток от 1 до 5)
-#attempts_list = [random.randint(1, 5) for num in range(1000)]
+# Создаем список для столбца "Attempts" (число попыток от 6 до 10)
+#attempts_list = [random.randint(5, 10) for num in range(1000)]
 # Создаем список для столбца "Word Length" (количество букв в слове)
 word_length_list = [len(word) for word in word_list]
 # Создаем списки для столбцов "Consonants" и "Vowels" (количество согласных и гласных букв в слове)
@@ -45,13 +45,13 @@ data = pd.read_csv('sample.csv')
 
 def calculate_attempts(row):
     if row['Word Length'] <= 3:
-        attempts = 1
+        attempts = 6
     elif 4 <= row['Word Length'] <= 6:
-        attempts = 2
+        attempts = 7
     elif 7 <= row['Word Length'] <= 8:
-        attempts = 3
+        attempts = 8
     elif row['Word Length'] >= 9:
-        attempts = 4
+        attempts = 9
     if row['Consonants'] >= 2 * row['Vowels']:
         attempts -= 1
     return attempts
@@ -69,7 +69,7 @@ random_indices_increase = np.random.choice(data.index, size=int(0.35 * len(data)
 random_indices_decrease = np.random.choice(data.index, size=int(0.25 * len(data)), replace=False)
 
 data.loc[random_indices_increase, 'Real Attempts'] += 1.8
-data.loc[random_indices_decrease, 'Real Attempts'] -= 0.5
+data.loc[random_indices_decrease, 'Real Attempts'] -= 0.8
 
 # Подготовка данных для обучения
 X = data[['Word Length', 'Vowels', 'Consonants']]
