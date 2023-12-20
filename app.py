@@ -17,10 +17,10 @@ import joblib
 # Загрузка словаря английских слов из библиотеки nltk
 nltk.download('words')
 english_words = set(words.words())
-# Генерация списка из 1000 уникальных слов на английском языке
-word_list = random.sample(list(english_words), 1000)
+# Генерация списка из 10000 уникальных слов на английском языке
+word_list = random.sample(list(english_words), 10000)
 # Создаем список для столбца "Attempts" (число попыток от 6 до 10)
-#attempts_list = [random.randint(5, 10) for num in range(1000)]
+#attempts_list = [random.randint(5, 10) for num in range(10000)]
 # Создаем список для столбца "Word Length" (количество букв в слове)
 word_length_list = [len(word) for word in word_list]
 # Создаем списки для столбцов "Consonants" и "Vowels" (количество согласных и гласных букв в слове)
