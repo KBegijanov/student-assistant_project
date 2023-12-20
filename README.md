@@ -18,5 +18,5 @@
 Приложение работает в облаке streamli.io: https://student-assistantproject-goa2v3jqv2amn6knuuzvo9.streamlit.app/
 
 # Команда
-Бегиджанов Константин 
+Бегиджанов Константин, 
 Загородний Серафим
